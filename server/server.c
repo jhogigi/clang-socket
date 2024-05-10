@@ -11,4 +11,6 @@ int main() {
         printf("socket failure!");
         exit(0);
     }
+
+    // TODO とりあえずサーバ側はまだ見てないのでここまで
 }
