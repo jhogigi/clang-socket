@@ -28,15 +28,12 @@ int main () {
     // sockaddr構造体について https://learn.microsoft.com/ja-jp/windows/win32/api/ws2def/ns-ws2def-sockaddr_in
     struct sockaddr_in serv_addr;
 
-    // 構造体のメンバを全て０で埋める まじかよ 　いるのか？
-    //    memset((char *)&serv_addr, 0, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;  // ipv4に設定
-
-    // serverからhostのアドレスをserv_addr構造体にコピーする処理
-    // コピー先のアドレス、コピー元のアドレス、コピーするバイト数
     memcpy((char *)&serv_addr.sin_addr.s_addr, (char *)server->h_addr, server->h_length);
+    // memcpy(コピー先, コピー元, コピーする長さ)
+    // htons でポート番号のバイトオーダーをビッグエンディアンに変換してあげる (ネットワークバイトオーダーに変えてあげる)
+    // https://www.youtube.com/watch?v=tVQ0F8S4G-c
+    serv_addr.sin_port = htons(80); // ポート番号を設定
 
-    printf("%u", serv_addr.sin_addr.s_addr);
-
-
+    printf("%hu", htons(80));
 }
